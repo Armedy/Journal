@@ -11,3 +11,16 @@ export async function saveJournalEntry(formData: { content: string }) {
   
   return { success: true };
 }
+
+export async function getJournalEntries() {
+  try {
+    const data = await sql`
+      SELECT * FROM entries 
+      ORDER BY created_at DESC;
+    `;
+    return data.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    return [];
+  }
+}
