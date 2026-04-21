@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
-import { saveJournalEntry } from './lib/actions'; // Import our new action
+import { saveJournalEntry } from './lib/actions';
+saveJournalEntry
 
 export default function JournalHome() {
   const [entry, setEntry] = useState("");
