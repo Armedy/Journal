@@ -41,3 +41,17 @@ export async function getPublishedEntries() {
 export async function getDraftEntries() {
   return await sql`SELECT * FROM entries WHERE status = 'draft' ORDER BY created_at DESC`;
 }
+
+export async function publishDraft(id: number, content: string) {
+  try {
+    await sql`
+      UPDATE entries 
+      SET content = ${content}, status = 'published', created_at = NOW() 
+      WHERE id = ${id}
+    `;
+    revalidatePath('/');
+    return { success: true };
+  } catch (error) {
+    return { success: false };
+  }
+}
